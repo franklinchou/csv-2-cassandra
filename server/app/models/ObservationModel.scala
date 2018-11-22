@@ -1,29 +1,17 @@
 package models
 
-import java.time.LocalDate
-
+import models.BaseObservationModel.{ObservationDate, PatientId}
 import models.DoseModel._
 
-// See https://jto.github.io/articles/type-all-the-things/
-object ObservationModel {
-
-  case class PatientId(value: String) extends AnyVal {
-    override def toString: String = value
-  }
-
-  case class ObservationDate(value: LocalDate) extends AnyVal {
-    override def toString: String = value.toString
-  }
-
-}
-
-case class ObservationModel(patientId: ObservationModel.PatientId,
-                            observationDate: ObservationModel.ObservationDate,
+case class ObservationModel(patientId: PatientId,
+                            observationDate: ObservationDate,
                             compound: CompoundModel,
                             doseId: DoseId,
-                            size: DoseSize,
-                            unit: DoseUnit,
-                            administrationMethod: DoseAdministrationMethod = DefaultAdministrationMethod) {
+                            doseSize: DoseSize,
+                            doseUnit: DoseUnit,
+                            administrationMethod: DoseAdministrationMethod = DefaultAdministrationMethod)
+
+  extends BaseObservationModel {
 
   private def compoundName = this.compound.getClass.getSimpleName.replace("$", "")
 
@@ -37,8 +25,8 @@ case class ObservationModel(patientId: ObservationModel.PatientId,
       observationDate.value.toString,
       doseId.toString,
       administrationMethod.toString,
-      size.toString,
-      unit.toString
+      doseSize.toString,
+      doseUnit.toString
     )
   }
 
@@ -48,17 +36,5 @@ case class ObservationModel(patientId: ObservationModel.PatientId,
     * @return
     */
   def toCSVString: String = values.mkString(",")
-
-  /**
-    * Convert to [[BaseObservationModel]]
-    *
-    * @return
-    */
-  def toBaseObservation: BaseObservationModel = {
-    BaseObservationModel(
-      patientId,
-      observationDate
-    )
-  }
 
 }
