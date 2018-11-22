@@ -1,13 +1,13 @@
 package models
 
-import java.time.LocalDate
+import models.WrappedObservation.{ObservationDate, PatientId}
 
 
 trait BaseModel {
 
-  val patientId: String
+  val patientId: PatientId
 
-  val observationDate: LocalDate
+  val observationDate: ObservationDate
 
   /**
     * Flatten a model into a CSV string

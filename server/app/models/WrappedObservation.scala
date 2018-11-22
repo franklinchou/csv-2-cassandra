@@ -2,16 +2,26 @@ package models
 
 import java.time.LocalDate
 
-case class WrappedObservation(patientId: String,
-                              observationDate: LocalDate,
-                              dosage: Dose) extends BaseModel {
 
+// See https://jto.github.io/articles/type-all-the-things/
+object WrappedObservation {
+
+  case class PatientId(value: String) extends AnyVal
+
+  case class ObservationDate(value: LocalDate) extends AnyVal
+
+}
+
+
+case class WrappedObservation(patientId: WrappedObservation.PatientId,
+                              observationDate: WrappedObservation.ObservationDate,
+                              dosage: Dose) extends BaseModel {
 
   private val values: Seq[String] = {
     Seq(
-      patientId,
-      dosage.compoundName,
-      observationDate.toString,
+      patientId.value,
+      dosage.compoundName, // Sort by the compound name as the "file type"
+      observationDate.value.toString,
       dosage.doseId.toString,
       dosage.administrationMethod,
       dosage.size.toString(),

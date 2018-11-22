@@ -4,6 +4,10 @@ import com.google.inject.ImplementedBy
 
 
 @ImplementedBy(classOf[S3RepoCSV])
-abstract class S3Repo() {
+class S3RepoMock {
+
+  def stream2db() = {
+
+  }
 
 }
