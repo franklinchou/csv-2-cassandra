@@ -11,8 +11,8 @@ jobs:
             cd server
             sbt clean compile
             sbt test
-  workflows:
-    version: 2
-    test_all:
-        jobs:
-          - scala-test
+workflows:
+  version: 2
+  test_all:
+    jobs:
+      - scala-test
