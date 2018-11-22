@@ -1,0 +1,3 @@
+package models
+
+case object ExperimentalCompound1Model extends CompoundModel

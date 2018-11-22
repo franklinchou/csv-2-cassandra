@@ -13,7 +13,8 @@ libraryDependencies ++=
     guice,
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
     "org.scalatest" % "scalatest_2.12" % "3.0.3",
-    "org.mockito" % "mockito-core" % "2.7.22"
+    "org.mockito" % "mockito-core" % "2.7.22",
+    "com.chuusai" %% "shapeless" % "2.3.3"
   )
 
 // Adds additional packages into Twirl
