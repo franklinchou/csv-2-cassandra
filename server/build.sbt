@@ -8,13 +8,17 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.12.6"
 
+val janusVersion = "0.2.2"
+
 libraryDependencies ++=
   Seq(
     guice,
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
     "org.scalatest" % "scalatest_2.12" % "3.0.3",
     "org.mockito" % "mockito-core" % "2.7.22",
-    "com.chuusai" %% "shapeless" % "2.3.3"
+    "com.chuusai" %% "shapeless" % "2.3.3",
+    "org.janusgraph" % "janusgraph-core" % janusVersion,
+    "org.janusgraph" % "janusgraph-cql" % janusVersion,
   )
 
 // Adds additional packages into Twirl

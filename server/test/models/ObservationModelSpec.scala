@@ -3,6 +3,7 @@ package models
 import java.time.LocalDate
 
 import models.BaseObservationModel.{ObservationDate, PatientId}
+import models.CompoundModel.Compound
 import models.DoseModel.{DoseId, DoseSize, DoseUnit}
 import models.SiteModel.{IntakePhysician, ZipCode}
 import org.scalatest.FunSpec
@@ -15,11 +16,13 @@ class ObservationModelSpec extends FunSpec {
 
   final val mockObservationDate = ObservationDate(LocalDate.of(2018, 1, 1))
 
+  final val mockCompound = Compound("compound-1")
+
   val observation1 =
     ObservationModel(
       mockPatientId,
       mockObservationDate,
-      Compound1Model,
+      mockCompound,
       DoseId(1),
       DoseSize(BigDecimal(0.5)),
       DoseUnit("mg")
@@ -27,17 +30,17 @@ class ObservationModelSpec extends FunSpec {
 
   describe("Single observation") {
     it("should convert to csv row") {
-      val expected = "mock-patient-1,Compound1Model,2018-01-01,1,Tablet,0.5,mg"
+      val expected = "mock-patient-1,compound-1,2018-01-01,1,Tablet,0.5,mg"
       assert(observation1.toCSVString == expected)
     }
   }
 
   describe("Single site-based observation") {
     val observation2 =
-      ObservationModelWithSite(
+      SiteObservationModel(
         mockPatientId,
         mockObservationDate,
-        Compound1Model,
+        mockCompound,
         IntakePhysician("F. Chou"),
         ZipCode(10010),
         DoseId(1),
@@ -46,7 +49,7 @@ class ObservationModelSpec extends FunSpec {
       )
 
     it("should allow Generic manipulation") {
-      val owsGeneric = LabelledGeneric[ObservationModelWithSite]
+      val owsGeneric = LabelledGeneric[SiteObservationModel]
       val rec = owsGeneric.to(observation2)
 
       // Observation with site -> observation
@@ -56,8 +59,8 @@ class ObservationModelSpec extends FunSpec {
           rec('observationDate),
           rec('compound),
           rec('doseId),
-          rec('size),
-          rec('unit),
+          rec('doseSize),
+          rec('doseUnit),
           rec('administrationMethod)
         )
 

@@ -1,7 +1,5 @@
 package models
 
-import models.DoseModel._
-
 object DoseModel {
 
   case class DoseId(value: Int) extends AnyVal {
@@ -16,20 +14,10 @@ object DoseModel {
     override def toString: String = value
   }
 
-  case class DoseAdministrationMethod(value: String) extends AnyVal {
+  case class AdministrationMethod(value: String) extends AnyVal {
     override def toString: String = value
   }
 
-  final val DefaultAdministrationMethod = DoseAdministrationMethod("Tablet")
-
-}
-
-case class DoseModel(doseId: DoseId,
-                     compound: CompoundModel,
-                     size: DoseSize,
-                     unit: DoseUnit,
-                     administrationMethod: DoseAdministrationMethod = DefaultAdministrationMethod) {
-
-  val compoundName: String = this.compound.getClass.getSimpleName.replace("$", "")
+  final val DefaultAdministrationMethod = AdministrationMethod("Tablet")
 
 }
