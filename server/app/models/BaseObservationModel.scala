@@ -1,6 +1,6 @@
 package models
 
-import java.time.LocalDate
+import java.util.Date
 
 import models.BaseObservationModel.{ObservationDate, PatientId}
 import models.CompoundModel.Compound
@@ -12,7 +12,7 @@ object BaseObservationModel {
     override def toString: String = value
   }
 
-  case class ObservationDate(value: LocalDate) extends AnyVal {
+  case class ObservationDate(value: Date) extends AnyVal {
     override def toString: String = value.toString
   }
 
@@ -29,13 +29,13 @@ trait BaseObservationModel {
 
   val compound: Compound
 
-  protected val values: Seq[String]
+  val mapping: Map[String, _]
 
   /**
     * Flatten a model into a CSV string
     *
     * @return
     */
-  def toCSVString: String = values.mkString(",")
+  def toCSVString: String = mapping.values.mkString(",")
 
 }

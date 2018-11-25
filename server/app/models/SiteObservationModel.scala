@@ -4,6 +4,15 @@ import models.BaseObservationModel.{ObservationDate, PatientId}
 import models.CompoundModel.Compound
 import models.DoseModel._
 import models.SiteModel.{IntakePhysician, ZipCode}
+import models.vertex._
+
+
+object SiteObservationModel {
+
+  final val `type` = "site-observation-model"
+
+}
+
 
 case class SiteObservationModel(patientId: PatientId,
                                 observationDate: ObservationDate,
@@ -17,22 +26,22 @@ case class SiteObservationModel(patientId: PatientId,
 
   extends BaseObservationModel {
 
-  final val `type` = "site-observation"
+  final val `type` = SiteObservationModel.`type`
 
   /**
     * Site Observation model
     */
-  val values: Seq[String] =
-    Seq(
-      patientId.toString,
-      compound.toString,
-      observationDate.toString,
-      doseId.toString,
-      administrationMethod.toString,
-      doseSize.toString,
-      doseUnit.toString,
-      intakePhysician.toString,
-      zipCode.toString
+  val mapping: Map[String, String] =
+    Map(
+      PatientIdProperty -> patientId.toString,
+      CompoundProperty -> compound.toString,
+      ObservationDateProperty -> observationDate.toString,
+      DoseIdProperty -> doseId.toString,
+      AdministrationMethodProperty -> administrationMethod.toString,
+      DoseSizeProperty -> doseSize.toString,
+      DoseUnitProperty -> doseUnit.toString,
+      IntakePhysicianProperty -> intakePhysician.toString,
+      IntakeZipCodeProperty -> zipCode.toString
     )
 
 }

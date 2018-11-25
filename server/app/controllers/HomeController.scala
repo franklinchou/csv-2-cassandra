@@ -1,5 +1,6 @@
 package controllers
 
+import dao.DataGraph
 import javax.inject._
 import play.api._
 import play.api.libs.json.Json
@@ -14,7 +15,14 @@ class HomeController @Inject()(config: Configuration,
     Ok(
       Json.obj(
         "application" -> "csv-2-cassandra",
-        "environment" -> config.get[String]("app.environment")
+        "environment" -> config.get[String]("app.environment"),
+        "janus" -> {
+          if (DataGraph.graph.isOpen) {
+            "online"
+          } else {
+            "offline"
+          }
+        }
       )
     )
   }

@@ -1,25 +1,28 @@
 package models
 
-import java.time.LocalDate
+import java.lang.Float
+import java.text.SimpleDateFormat
+import java.util.Date
 
 import org.apache.tinkerpop.gremlin.structure.VertexProperty
 
-package object vertices {
+
+package object vertex {
 
   implicit def property2string(vp: VertexProperty[String]): String = {
     vp.value.toString
   }
 
-  implicit def property2date(vp: VertexProperty[String]): LocalDate = {
-    LocalDate.parse(vp.value.toString)
+  implicit def property2date(vp: VertexProperty[String]): Date = {
+    new SimpleDateFormat("yyyy-MM-dd").parse(vp.value.toString)
   }
 
   implicit def property2int(vp: VertexProperty[String]): Int = {
     vp.value.toInt
   }
 
-  implicit def property2decimal(vp: VertexProperty[String]): BigDecimal = {
-    BigDecimal(vp.value.toString)
+  implicit def property2float(vp: VertexProperty[String]): Float = {
+    Float.parseFloat(vp.value.toString)
   }
 
   val PatientIdProperty = "patient-id"
@@ -35,5 +38,9 @@ package object vertices {
   val DoseUnitProperty = "dose-unit"
 
   val AdministrationMethodProperty = "administration-method"
+
+  val IntakePhysicianProperty = "intake-physician"
+
+  val IntakeZipCodeProperty = "intake-zip-code"
 
 }
