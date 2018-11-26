@@ -30,6 +30,7 @@ object ObservationModel {
         AdministrationMethod.apply(split(6)) ::
         HNil
 
+    // TODO How is this different from simply using an apply method?
     Generic[ObservationModel].from(components)
   }
 

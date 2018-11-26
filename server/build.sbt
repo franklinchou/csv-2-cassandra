@@ -29,4 +29,7 @@ libraryDependencies ++=
 // Adds additional packages into conf/routes
 // play.sbt.routes.RoutesKeys.routesImport += "com.fmc.binders._"
 
+
+// Set resource directory for tests to run
+// See here https://www.scala-sbt.org/1.0/docs/Howto-Customizing-Paths.html
 resourceDirectory in Test := baseDirectory.value / "resources"
