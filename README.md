@@ -23,3 +23,15 @@ Given these data:
 3. Retrieve a mapping of id (in this case patient id) to the minimum
 observation date (when the compound was first administered) and the
 maximum observation date.
+
+## Running locally
+
+1. Get a local docker container with cassandra
+
+`docker run --name cassandra-test -d -p 9042:9042 -v <local>:<docker> cassandra:latest` # first time
+
+`docker start cassandra-test` # after the container is created, just start it
+
+2. Drop into the cassandra shell:
+
+`docker exec -it cassandra-test cqlsh`
